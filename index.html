@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>German RP – FiveM Roleplay</title>
+<meta name="description" content="German RP – deutscher FiveM-Roleplay-Server. Polizei, Rettungsdienst, Mechaniker, eigene Wirtschaft. Launcher herunterladen und loslegen.">
+<meta property="og:title" content="German RP – FiveM Roleplay">
+<meta property="og:description" content="Dein neues Leben in Los Santos. Deutscher FiveM-Roleplay-Server.">
+<meta property="og:image" content="banner.png">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #ffce00; --gold-d: #e0a800; --red: #dd0000;
+    --bg: #0b0a0f; --bg2: #111017; --panel: #17151f; --line: #2a2634;
+    --text: #efeef3; --soft: #c9c5d4; --mute: #8f8a9e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font: 17px/1.65 'Roboto Condensed', Arial, sans-serif; overflow-x: hidden; }
+  a { color: var(--gold); }
+  h1, h2, h3, .nav a, .btn, .kicker, .num { font-family: 'Oswald', Impact, sans-serif; text-transform: uppercase; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .kicker { display: inline-block; color: var(--gold); font-size: 14px; font-weight: 600; letter-spacing: 4px; }
+  .kicker::before { content: ''; display: inline-block; width: 28px; height: 3px; background: var(--gold); vertical-align: middle; margin-right: 12px; }
+
+  /* ---------- Navigation ---------- */
+  header { position: fixed; inset: 0 0 auto; z-index: 20; transition: background .25s, border-color .25s; border-bottom: 1px solid transparent; }
+  header.solid { background: rgba(11,10,15,.96); border-color: var(--line); }
+  header .wrap { display: flex; align-items: center; height: 72px; gap: 28px; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font: 700 22px 'Oswald', sans-serif; letter-spacing: 1px; }
+  .logo img { height: 42px; }
+  .logo b { color: var(--gold); }
+  .nav { margin-left: auto; display: flex; align-items: center; gap: 26px; }
+  .nav a { color: var(--soft); text-decoration: none; font-size: 15px; font-weight: 500; letter-spacing: 1px; }
+  .nav a:hover { color: var(--gold); }
+  .nav .cta { color: #111; background: var(--gold); padding: 8px 18px; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
+  .nav .cta:hover { color: #111; background: #ffdc3a; }
+
+  /* ---------- Startbereich ---------- */
+  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 110px 0 90px;
+    background:
+      radial-gradient(ellipse 60% 70% at 78% 60%, rgba(255,140,60,.22), transparent 70%),
+      linear-gradient(180deg, #0c0a14 0%, #1a0f24 55%, #2a1226 100%); overflow: hidden; }
+  .hero .city { position: absolute; right: -40px; bottom: 0; width: min(62vw, 980px); height: auto; opacity: .95;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%); mask-image: linear-gradient(90deg, transparent 0%, #000 22%); }
+  .hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; background: linear-gradient(transparent, var(--bg)); }
+  .hero .wrap { position: relative; z-index: 2; width: 100%; }
+  .hero h1 { font-size: clamp(46px, 8vw, 96px); line-height: .98; font-weight: 700; margin: 18px 0 22px; letter-spacing: -.5px; }
+  .hero h1 span { color: var(--gold); display: block; }
+  .hero p { max-width: 520px; color: var(--soft); font-size: 20px; margin-bottom: 34px; }
+  .flag { display: flex; width: 150px; height: 5px; margin-bottom: 30px; } .flag i { flex: 1; }
+  .flag i:nth-child(1) { background: #000; outline: 1px solid #333; } .flag i:nth-child(2) { background: var(--red); } .flag i:nth-child(3) { background: var(--gold); }
+
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 34px; background: var(--gold); color: #111; text-decoration: none;
+    font-size: 19px; font-weight: 700; letter-spacing: 1px; border: 0; cursor: pointer; transition: background .15s, transform .15s;
+    clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%); }
+  .btn:hover { background: #ffdc3a; transform: translateY(-2px); }
+  .btn svg { width: 20px; height: 20px; }
+  .btn.ghost { background: rgba(255,255,255,.08); color: var(--text); }
+  .btn.ghost:hover { background: rgba(255,255,255,.16); }
+  .btns { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .facts { display: flex; gap: 46px; margin-top: 56px; }
+  .facts div { border-left: 3px solid var(--gold); padding-left: 14px; }
+  .facts b { display: block; font: 700 30px/1 'Oswald', sans-serif; }
+  .facts span { color: var(--mute); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ---------- Abschnitte ---------- */
+  section { position: relative; padding: 110px 0; }
+  .head { margin-bottom: 50px; max-width: 680px; }
+  .head h2 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; margin: 12px 0 14px; }
+  .head h2 span { color: var(--gold); }
+  .head p { color: var(--mute); font-size: 18px; }
+  .alt { background: var(--bg2); clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%); padding: 150px 0; }
+
+  /* Features */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); padding: 30px 28px; position: relative; transition: transform .2s, border-color .2s; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(255,206,0,.5); }
+  .card::before { content: ''; position: absolute; left: 0; top: 0; width: 0; height: 3px; background: var(--gold); transition: width .3s; }
+  .card:hover::before { width: 100%; }
+  .icon { width: 52px; height: 52px; display: grid; place-items: center; background: rgba(255,206,0,.1); color: var(--gold); margin-bottom: 18px;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
+  .icon svg { width: 26px; height: 26px; }
+  .card h3 { font-size: 22px; margin-bottom: 8px; letter-spacing: .5px; }
+  .card p { color: var(--soft); font-size: 16px; }
+
+  /* Download */
+  .dl { display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: center; }
+  .dlbox { background: linear-gradient(135deg, #1f1a08, #17151f 60%); border: 1px solid rgba(255,206,0,.35); padding: 40px; position: relative; }
+  .dlbox::after { content: ''; position: absolute; right: -1px; top: -1px; width: 70px; height: 70px; background: var(--gold); clip-path: polygon(100% 0, 0 0, 100% 100%); }
+  .dlbox h3 { font-size: 30px; margin-bottom: 4px; }
+  .dlbox .meta { color: var(--mute); margin-bottom: 26px; font-size: 15px; }
+  .dlbox ul { list-style: none; margin-top: 26px; display: grid; gap: 8px; }
+  .dlbox li { color: var(--soft); padding-left: 26px; position: relative; }
+  .dlbox li::before { content: ''; position: absolute; left: 0; top: 9px; width: 12px; height: 7px; border-left: 3px solid var(--gold); border-bottom: 3px solid var(--gold); transform: rotate(-45deg); }
+
+  /* Schritte */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: s; }
+  .step { background: var(--panel); border: 1px solid var(--line); padding: 28px; }
+  .num { display: block; font-size: 54px; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--gold); margin-bottom: 12px; }
+  .step h3 { font-size: 20px; margin-bottom: 6px; }
+  .step p { color: var(--soft); font-size: 15px; }
+  code { background: #000; padding: 2px 8px; color: var(--gold); font-size: 15px; font-family: Consolas, monospace; }
+
+  /* Regeln */
+  .rules { display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: start; }
+  .rtabs { display: grid; gap: 4px; position: sticky; top: 100px; }
+  .rtabs button { text-align: left; background: transparent; border: 0; border-left: 3px solid var(--line); color: var(--mute); padding: 12px 18px; cursor: pointer;
+    font: 600 17px 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+  .rtabs button:hover { color: var(--text); }
+  .rtabs button.on { color: var(--gold); border-color: var(--gold); background: rgba(255,206,0,.06); }
+  .rpane { display: none; background: var(--panel); border: 1px solid var(--line); padding: 34px 38px; }
+  .rpane.on { display: block; }
+  .rpane h3 { font-size: 28px; margin-bottom: 18px; }
+  .rpane h3 small { color: var(--gold); margin-right: 10px; }
+  .rpane ol { list-style: none; counter-reset: r; display: grid; gap: 14px; }
+  .rpane li { counter-increment: r; display: grid; grid-template-columns: 44px 1fr; color: var(--soft); }
+  .rpane li::before { content: counter(r, decimal-leading-zero); font: 700 15px 'Oswald', sans-serif; color: var(--gold); padding-top: 2px; }
+  .rpane li b { color: var(--text); }
+  .stand { color: var(--mute); font-size: 14px; margin-top: 22px; }
+
+  /* FAQ */
+  .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .faq div { border-top: 2px solid var(--line); padding-top: 20px; }
+  .faq h3 { font-size: 20px; margin-bottom: 8px; }
+  .faq p { color: var(--soft); font-size: 16px; }
+
+  /* Discord-Banner */
+  .join { text-align: center; padding: 100px 0 120px; background:
+      radial-gradient(ellipse 50% 80% at 50% 100%, rgba(255,206,0,.12), transparent 70%); }
+  .join h2 { font-size: clamp(36px, 6vw, 64px); line-height: 1; margin: 14px 0 18px; }
+  .join h2 span { color: var(--gold); }
+  .join p { color: var(--soft); margin-bottom: 32px; }
+  .join .btns { justify-content: center; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--mute); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  footer img { height: 26px; vertical-align: middle; margin-right: 8px; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .cards, .steps { grid-template-columns: 1fr 1fr; }
+    .dl, .rules, .faq { grid-template-columns: 1fr; }
+    .rtabs { position: static; grid-template-columns: repeat(3, 1fr); }
+    .rtabs button { border-left: 0; border-bottom: 3px solid var(--line); text-align: center; font-size: 14px; padding: 10px 6px; }
+    .hero .city { width: 120vw; opacity: .35; }
+  }
+  @media (max-width: 600px) {
+    .nav a:not(.cta) { display: none; }
+    .cards, .steps { grid-template-columns: 1fr; }
+    .facts { gap: 24px; }
+    .facts b { font-size: 24px; }
+    .rpane { padding: 24px 20px; }
+    section { padding: 80px 0; }
+    .alt { padding: 110px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <a class="logo" href="#"><img src="logo.png" alt="">GERMAN <b>RP</b></a>
+    <nav class="nav">
+      <a href="#features">Server</a>
+      <a href="#join">So joinst du</a>
+      <a href="#regeln">Regeln</a>
+      <a href="#faq">FAQ</a>
+      <a class="cta" href="#download">Download</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <img class="city" src="skyline.jpg" alt="">
+  <div class="wrap">
+    <span class="kicker">Deutscher FiveM-Roleplay-Server</span>
+    <h1>Dein neues Leben <span>in Los Santos</span></h1>
+    <div class="flag"><i></i><i></i><i></i></div>
+    <p>Ernstes, faires Roleplay mit Polizei, Rettungsdienst, Mechanikern, Taxi, Fahrschule und eigener Wirtschaft.</p>
+    <div class="btns">
+      <a class="btn" href="#download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M4 21h16"/></svg>Launcher laden</a>
+      <a class="btn ghost" href="https://dsc.gg/server-german-rp" target="_blank" rel="noopener">Discord beitreten</a>
+    </div>
+    <div class="facts">
+      <div><b>100 %</b><span>Deutsch</span></div>
+      <div><b>Eigene</b><span>Systeme</span></div>
+      <div><b>Kostenlos</b><span>Spielen</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Der Server</span>
+      <h2>Was dich <span>erwartet</span></h2>
+      <p>Selbst entwickelte Systeme, gemacht für ernstes deutsches Roleplay.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg></div>
+        <h3>Polizei</h3><p>Streife, Kontrollen, Alkoholtest, Führerschein einziehen, Blitzer und Gefängnis mit Arbeit.</p></div>
+      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></div>
+        <h3>Rettungsdienst</h3><p>Automatische Unfallmeldungen, realistische Verletzungen und NPC-Hilfe, wenn niemand im Dienst ist.</p></div>
+      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17c.8-2 2-3 3.5-3s2.7 1 3.5 3"/><line x1="14" y1="10" x2="19" y2="10"/><line x1="14" y1="14" x2="18" y2="14"/></svg></div>
+        <h3>Fahrschule</h3><p>Theorie und Praxis mit Fahrlehrer. Wer ohne Führerschein erwischt wird, zahlt drauf.</p></div>
+      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
+        <h3>Eigenes Handy</h3><p>911-Notruf mit Sprachanruf, SMS, Bank, Autovermietung, Darkweb und mehr.</p></div>
+      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="13" x2="21" y2="13"/></svg></div>
+        <h3>Jobs</h3><p>Taxi, Lieferdienste, Mechaniker. Bewirb dich direkt beim Mitarbeiter vor Ort.</p></div>
+      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1"/><circle cx="7" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
+        <h3>Echtes Fahrgefühl</h3><p>Realistisches Handling, Unfälle mit Folgen, Gurtpflicht und Verkehr, der nicht immer nett ist.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="download" class="alt">
+  <div class="wrap dl">
+    <div class="reveal">
+      <span class="kicker">Download</span>
+      <div class="head" style="margin: 0">
+        <h2>Ein Klick <span>und du bist drin</span></h2>
+        <p>Der German-RP-Launcher richtet alles für dich ein, zeigt dir News und Spielerzahl und verbindet dich direkt mit dem Server.</p>
+      </div>
+    </div>
+    <div class="dlbox reveal">
+      <h3>German RP Launcher</h3>
+      <div class="meta">Windows 10 / 11 · ca. 80 MB · Version 1.0</div>
+      <a class="btn" id="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M4 21h16"/></svg>Kostenlos herunterladen</a>
+      <ul>
+        <li>Installiert Radmin VPN automatisch</li>
+        <li>Zeigt, ob der Server online ist</li>
+        <li>Startet FiveM und verbindet sofort</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Einstieg</span>
+      <h2>So <span>joinst du</span></h2>
+      <p>Einmal einrichten, danach reicht ein Klick auf SPIELEN.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="num">01</span><h3>GTA V &amp; FiveM</h3><p>Du brauchst eine legale Kopie von GTA V. FiveM gibt es kostenlos auf <a href="https://fivem.net/" target="_blank" rel="noopener">fivem.net</a>.</p></div>
+      <div class="step reveal"><span class="num">02</span><h3>Launcher installieren</h3><p>Zeigt Windows „Der Computer wurde geschützt“, klick auf „Weitere Informationen“ und „Trotzdem ausführen“.</p></div>
+      <div class="step reveal"><span class="num">03</span><h3>Radmin bestätigen</h3><p>Der Launcher installiert Radmin VPN von selbst. Bei der Windows-Abfrage auf „Ja“ klicken.</p></div>
+      <div class="step reveal"><span class="num">04</span><h3>Netzwerk beitreten</h3><p>In Radmin: „Netzwerk“ → „Bestehendem Netzwerk beitreten“.<br>Name <code>GermanRP</code> · Passwort <code>GermanRP</code></p></div>
+      <div class="step reveal"><span class="num">05</span><h3>Whitelist</h3><p>Komm im Discord in den Warteraum. Ein Teammitglied schaltet dich frei.</p></div>
+      <div class="step reveal"><span class="num">06</span><h3>Spielen</h3><p>Im Launcher auf SPIELEN drücken. Willkommen in Los Santos!</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="regeln" class="alt">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Regelwerk</span>
+      <h2>Unsere <span>Regeln</span></h2>
+      <p>Mit dem Betreten des Servers akzeptierst du diese Regeln. Unwissenheit schützt nicht vor Strafe.</p>
+    </div>
+    <div class="rules reveal">
+      <div class="rtabs" id="rtabs">
+        <button class="on" data-r="1">§1 Allgemein</button>
+        <button data-r="2">§2 Roleplay</button>
+        <button data-r="3">§3 Gewalt</button>
+        <button data-r="4">§4 Fahrzeuge</button>
+        <button data-r="5">§5 Cheats &amp; Bugs</button>
+        <button data-r="6">§6 Strafen</button>
+      </div>
+      <div>
+        <div class="rpane on" data-r="1"><h3><small>§1</small>Allgemein</h3><ol>
+          <li><span><b>Respekt</b> gegenüber allen Spielern und dem Team – im Spiel, im Discord und im Voice.</span></li>
+          <li><span>Keine Beleidigungen, Rassismus, Sexismus oder Diskriminierung außerhalb des Roleplays.</span></li>
+          <li><span>Anweisungen des Teams sind Folge zu leisten. Diskussionen bitte per Ticket im Discord.</span></li>
+          <li><span>Ein funktionierendes <b>Mikrofon</b> ist Pflicht. Gesprochen wird Deutsch.</span></li>
+        </ol></div>
+        <div class="rpane" data-r="2"><h3><small>§2</small>Roleplay</h3><ol>
+          <li><span>Spiele deinen Charakter ernsthaft und realistisch. Er hat Angst um sein Leben (<b>Fear-RP</b>).</span></li>
+          <li><span>Kein <b>Metagaming</b>: Wissen von außerhalb (Discord, Streams) darf im Spiel nicht genutzt werden.</span></li>
+          <li><span>Kein <b>Powergaming</b>: keine unrealistischen Aktionen, die dem Gegenüber keine Chance lassen.</span></li>
+          <li><span>Out-of-Character (OOC) nur im Notfall. Bleib so gut es geht in deiner Rolle.</span></li>
+          <li><span>Kein <b>Combat-Logging</b>: Wer in einer laufenden Situation das Spiel verlässt, wird bestraft.</span></li>
+          <li><span>Nach dem Tod vergisst dein Charakter die Situation, die dazu geführt hat (<b>New-Life-Rule</b>).</span></li>
+        </ol></div>
+        <div class="rpane" data-r="3"><h3><small>§3</small>Gewalt &amp; Kriminalität</h3><ol>
+          <li><span>Kein <b>RDM</b>: Jede Gewalt braucht einen nachvollziehbaren Roleplay-Grund.</span></li>
+          <li><span>Kein <b>VDM</b>: Fahrzeuge sind keine Waffen.</span></li>
+          <li><span>Überfälle nur, wenn genug Polizei im Dienst ist.</span></li>
+          <li><span>Geiselnahmen nur mit echtem Roleplay – keine Freunde als „Geisel“.</span></li>
+          <li><span>Krankenhaus, Polizeiwache und Spawnpunkte sind <b>Safezones</b>.</span></li>
+          <li><span>Polizei und Rettungsdienst im Dienst dürfen nicht grundlos angegriffen werden.</span></li>
+        </ol></div>
+        <div class="rpane" data-r="4"><h3><small>§4</small>Fahrzeuge</h3><ol>
+          <li><span>Fahre realistisch. Kein Offroad mit Sportwagen, keine Stunts im Stadtverkehr.</span></li>
+          <li><span>Ohne <b>Führerschein</b> darfst du nicht fahren – die Polizei kann dich dafür bestrafen.</span></li>
+          <li><span>Fahrzeuge von Polizei, Rettung und Mechanikern dürfen nicht gestohlen werden.</span></li>
+        </ol></div>
+        <div class="rpane" data-r="5"><h3><small>§5</small>Cheats, Bugs &amp; Mods</h3><ol>
+          <li><span>Cheats, Mod-Menüs, Makros und Exploits führen zum <b>permanenten Bann</b>.</span></li>
+          <li><span>Gefundene Bugs sofort per Ticket melden, nicht ausnutzen.</span></li>
+          <li><span>Grafik-Mods wie ReShade sind erlaubt, solange sie keinen Vorteil verschaffen.</span></li>
+        </ol></div>
+        <div class="rpane" data-r="6"><h3><small>§6</small>Strafen</h3><ol>
+          <li><span>Je nach Schwere: Verwarnung, Kick, zeitlicher Bann oder permanenter Bann.</span></li>
+          <li><span>Das Team entscheidet im Einzelfall. Entbannungsanträge per Ticket im Discord.</span></li>
+        </ol></div>
+        <p class="stand">Stand: November 2026 · Änderungen werden im Discord angekündigt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Hilfe</span>
+      <h2>Häufige <span>Fragen</span></h2>
+    </div>
+    <div class="faq">
+      <div class="reveal"><h3>Warum brauche ich Radmin VPN?</h3><p>Unser Server läuft über ein privates Netzwerk. Radmin verbindet dich sicher damit – der Launcher installiert es automatisch.</p></div>
+      <div class="reveal"><h3>Der Launcher sagt „Server offline“.</h3><p>Prüfe, ob Radmin läuft und du im Netzwerk <code>GermanRP</code> bist. Ist der Server wirklich offline, steht es im Discord.</p></div>
+      <div class="reveal"><h3>Kostet der Server etwas?</h3><p>Nein. Du brauchst nur GTA V. Server, Launcher und FiveM sind kostenlos.</p></div>
+      <div class="reveal"><h3>Wie werde ich Polizist oder Sanitäter?</h3><p>Geh im Spiel zur Wache oder zum Krankenhaus und sprich mit dem Mitarbeiter am Empfang.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="join">
+  <div class="wrap reveal">
+    <span class="kicker">Community</span>
+    <h2>Werde Teil von <span>German RP</span></h2>
+    <p>Fragen, Whitelist, News und Events – alles läuft über unseren Discord.</p>
+    <div class="btns">
+      <a class="btn" href="https://dsc.gg/server-german-rp" target="_blank" rel="noopener">Discord beitreten</a>
+      <a class="btn ghost" href="#download">Launcher laden</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span><img src="logo.png" alt="">© 2026 German RP · Nicht mit Rockstar Games oder Take-Two verbunden.</span>
+    <span><a href="#regeln">Regeln</a> · <a href="https://dsc.gg/server-german-rp" target="_blank" rel="noopener">Discord</a></span>
+  </div>
+</footer>
+
+<script>
+  // Download-Link für den Launcher (wird beim Hochladen auf das GitHub-Release gesetzt)
+  const DOWNLOAD_URL = 'https://github.com/CrystalSMP/germanrp/releases/latest/download/GermanRP-Launcher-Setup.exe';
+  document.getElementById('dl').href = DOWNLOAD_URL;
+
+  // Navigation bekommt beim Scrollen einen Hintergrund
+  const hdr = document.getElementById('top');
+  const onScroll = () => hdr.classList.toggle('solid', scrollY > 30);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Regel-Reiter
+  document.querySelectorAll('#rtabs button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('#rtabs button').forEach(x => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.rpane').forEach(p => p.classList.toggle('on', p.dataset.r === b.dataset.r));
+  });
+
+  // Einblenden beim Scrollen
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
